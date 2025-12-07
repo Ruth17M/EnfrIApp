@@ -26,6 +26,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Category
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.Star
@@ -70,7 +71,6 @@ import org.lasalle.recipeapp.ui.screeens.home.components.LoadingOverlay
 import org.lasalle.recipeapp.ui.screeens.home.components.RecipeCard
 import org.lasalle.recipeapp.ui.screeens.home.components.RecipeRowItem
 import org.lasalle.recipeapp.ui.viewmodels.HomeViewModel
-import org.lasalle.recipeapp.utils.hideKeyboard
 
 // 1. LazyColumn
 //      item{Row} -> Header
@@ -175,8 +175,6 @@ fun HomeScreen(navController: NavController){
                 trailingIcon = {
                     IconButton(
                         onClick = {
-                            hideKeyboard(focusManager = focusManager)
-
 
                             vm.generatedRecipe(prompt)
                         }
@@ -277,6 +275,53 @@ fun HomeScreen(navController: NavController){
 
         item {
             Spacer(modifier = Modifier.height(24.dp))
+        }
+
+        item {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(24.dp))
+                    .background(Color(0xFFFFEBD6))
+                    .clickable {
+                        navController.navigate("ingredientes")
+                    }
+                    .padding(20.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+
+                Column(
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text(
+                        text = "¿Qué hay en mi refri?",
+                        style = MaterialTheme.typography.titleMedium.copy(
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Black,
+                            fontSize = 16.sp
+                        )
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = "Echa un vistazo a tus ingredientes",
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            color = Color.Gray,
+                            fontSize = 14.sp
+                        )
+                    )
+                }
+
+                // Icono (Lado Derecho)
+                Icon(
+                    imageVector = Icons.Default.Info,
+                    contentDescription = null,
+                    tint = Color(0xFFE67C24),
+                    modifier = Modifier.size(28.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
         }
 
         // Nueva Card: "¿No sabes qué cocinar hoy?"

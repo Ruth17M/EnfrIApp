@@ -13,16 +13,34 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 import enfria.composeapp.generated.resources.Res
 import enfria.composeapp.generated.resources.compose_multiplatform
+import org.enfria.project.ui.screeens.home.RecipeScreen
+import org.lasalle.recipeapp.ui.screeens.home.HomeScreen
 
 @Composable
 @Preview
 fun App() {
-    MaterialTheme {
+    val navController = rememberNavController()
+    NavHost(
+        navController = navController,
+        startDestination = "home"
+    ){
+        composable("home"){
+            HomeScreen(navController = navController)
+        }
+
+        composable("ingredientes"){
+            RecipeScreen(navController = navController)
+        }
+    }
+    /*MaterialTheme {
         var showContent by remember { mutableStateOf(false) }
         Column(
             modifier = Modifier
@@ -45,5 +63,5 @@ fun App() {
                 }
             }
         }
-    }
+    }*/
 }
