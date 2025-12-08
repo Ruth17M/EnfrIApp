@@ -25,6 +25,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,13 +46,16 @@ import org.enfria.project.ui.viewmodels.EnfriaViewModel
 val categories = listOf("PODRIDO", "FRESCO")
 
 
+
 @Composable
 fun RecipeScreen(navController: NavController) {
     val colors = MaterialTheme.colorScheme
     val enfriaViewModel : EnfriaViewModel = viewModel()
     var selectedCategory by remember { mutableStateOf("Lacteos") }
     var productos : List<Food>  = enfriaViewModel.productos
-
+    LaunchedEffect(Unit){
+        enfriaViewModel.getProductos()
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
