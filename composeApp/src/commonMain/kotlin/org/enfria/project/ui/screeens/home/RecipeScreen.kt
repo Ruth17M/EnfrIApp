@@ -39,7 +39,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 
-
 data class Recipe(
     val name: String,
     val time: String,
