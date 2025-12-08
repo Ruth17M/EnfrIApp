@@ -4,16 +4,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import org.lasalle.recipeapp.data.services.KtorfitFactory
 import org.lasalle.recipeapp.models.Prompt
 import org.lasalle.recipeapp.models.RecipeReview
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import org.lasalle.recipeapp.data.services.Preferences
+import org.lasalle.recipeapp.data.services.RecipeService
 import org.lasalle.recipeapp.models.Recipe
 
 class HomeViewModel : ViewModel() {
-    private val recipeservice = KtorfitFactory.getRecipeService()
+    private val recipeservice = RecipeService()
     var ingredients by mutableStateOf("")
     var generatedRecipe by mutableStateOf<RecipeReview?>(null)
     var recentRecipes by mutableStateOf<List<Recipe>>(listOf())

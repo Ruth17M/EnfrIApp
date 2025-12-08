@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import org.lasalle.recipeapp.data.services.KtorfitFactory
+import org.lasalle.recipeapp.data.services.AuthService
 import org.lasalle.recipeapp.data.services.Preferences
 import org.lasalle.recipeapp.models.LoginBody
 import org.lasalle.recipeapp.models.RegisterBody
@@ -14,7 +14,7 @@ import org.lasalle.recipeapp.models.RegisterBody
 class AuthViewModel() : ViewModel(){
     val preferences = Preferences
     var message by mutableStateOf("")
-    val authService = KtorfitFactory.getAuthService()
+    val authService = AuthService()
     var isLogged by mutableStateOf(preferences.getIsLogged())
 
     fun register(name:String, email: String, password: String){

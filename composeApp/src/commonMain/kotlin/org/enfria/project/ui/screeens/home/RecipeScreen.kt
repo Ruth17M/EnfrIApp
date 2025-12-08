@@ -36,31 +36,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import org.enfria.project.models.Food
+import org.enfria.project.ui.viewmodels.EnfriaViewModel
 
 
-data class Recipe(
-    val name: String,
-    val time: String,
-    val rating: String,
-    val backgroundColor: Color
-)
-val fakeRecipes = listOf(
-    Recipe("Manzana", "3 días", "4.3", Color(0xFFFFF3D1)),
-    Recipe("Platano", "10 días", "4.3", Color(0xFFEFFFD9)),
-    Recipe("Leche", "30 días", "4.3", Color(0xFFFFE1BD)),
-    Recipe("Huevo", "45 días", "4.3", Color(0xFFE3FFCE)),
-    Recipe("Queso", "15 días", "4.3", Color(0xFFF5F5F5)),
-    Recipe("Jitomate", "25 días", "4.3", Color(0xFFFFD6D6))
-)
-
-val categories = listOf("Lacteos", "Fruta", "Verdura", "Embutidos")
+val categories = listOf("PODRIDO", "FRESCO")
 
 
 @Composable
 fun RecipeScreen(navController: NavController) {
     val colors = MaterialTheme.colorScheme
+    val enfriaViewModel : EnfriaViewModel = viewModel()
     var selectedCategory by remember { mutableStateOf("Lacteos") }
+    var productos : List<Food>  = enfriaViewModel.productos
 
     Column(
         modifier = Modifier
@@ -92,7 +82,8 @@ fun RecipeScreen(navController: NavController) {
         // SEARCH BAR
         OutlinedTextField(
             value = "",
-            onValueChange = {},
+            onValueChange = {
+            },
             placeholder = { Text("Search here") },
             leadingIcon = {
                 Icon(Icons.Default.Search, contentDescription = null, tint = orangeColor)
@@ -131,7 +122,7 @@ fun RecipeScreen(navController: NavController) {
 
         // LIST
         LazyColumn(verticalArrangement = Arrangement.spacedBy(14.dp)) {
-            items(fakeRecipes) { recipe ->
+            items(productos) { recipe ->
                 RecipeItem(recipe)
             }
         }
@@ -140,7 +131,7 @@ fun RecipeScreen(navController: NavController) {
 
 
 @Composable
-fun RecipeItem(recipe: Recipe) {
+fun RecipeItem(recipe: Food) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -161,12 +152,12 @@ fun RecipeItem(recipe: Recipe) {
 
         Column(modifier = Modifier.weight(1f)) {
 
-            Text("recipe.name", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+            Text(recipe.alimento, fontWeight = FontWeight.Bold, fontSize = 18.sp)
 
             Spacer(modifier = Modifier.height(4.dp))
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("⏱ ${"recipe.time"}", fontSize = 14.sp)
+                Text("Estado ${recipe.estado}", fontSize = 14.sp)
                 Spacer(modifier = Modifier.width(8.dp))
 //                Text("⭐ ${recipe.rating}", fontSize = 14.sp)
             }
