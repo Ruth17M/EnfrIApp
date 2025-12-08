@@ -14,10 +14,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 
 
-class EnfriaViewModel(
-    private val enfriaService: EnfriaService
-) : ViewModel() {
-
+class EnfriaViewModel() : ViewModel() {
+    private val enfriaService = EnfriaService()
     var productos by mutableStateOf<List<Food>>(listOf())
         private set
 
